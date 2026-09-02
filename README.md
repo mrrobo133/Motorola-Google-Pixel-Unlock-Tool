@@ -1,4 +1,55 @@
-# ==========================================
+================================================================================
+PROJECT OVERVIEW: MOTOROLA GOOGLE PIXEL UNLOCK TOOL
+================================================================================
+
+This project serves as a minimal, professional command-line reference guide 
+designed specifically for Termux and Linux environments to handle bootloader 
+unlocking workflows via USB OTG. Instead of heavy scripts or automated menus, 
+it utilizes direct, low-level fastboot commands to interact with target devices.
+
+--------------------------------------------------------------------------------
+1. GOOGLE PIXEL WORKFLOW ARCHITECTURE & EXPLANATION
+--------------------------------------------------------------------------------
+Google Pixel devices implement a native, hardware-level direct unlocking protocol 
+without requiring external server intervention. 
+
+- Connection Verification: Establishes a stable data bridge between the host 
+  Termux terminal and the target Pixel device running in fastboot mode.
+- Hardware Profiling: Queries specific variables like product identity, 
+  secure boot states, and current locking flags to ensure the hardware 
+  environment is fully primed.
+- Token Extraction: Generates and pulls the unique hardware-level unlock 
+  data string directly from the device memory.
+- Flashing Execution: Pushes the primary flash unlock command, prompting 
+  the user to manually confirm the operation on the physical device screen.
+
+--------------------------------------------------------------------------------
+2. MOTOROLA WORKFLOW ARCHITECTURE & EXPLANATION
+--------------------------------------------------------------------------------
+Motorola devices enforce a strict, cryptographic server-dependent security model 
+that cannot be bypassed solely via local software commands.
+
+- Initialization: Scans and verifies the active fastboot link over the OTG cable 
+  to confirm communication.
+- OEM Data Retrieval: Dumps the specific device bootloader data token required 
+  by the manufacturer's security infrastructure.
+- Portal Verification (Manual Step): The extracted token string must be submitted 
+  manually through Motorola's official web portal to validate warranty and 
+  generate a unique cryptographic server key.
+- Key Application: Transmits the official server-provided unlock key back to the 
+  device to successfully lift the bootloader restriction.
+
+--------------------------------------------------------------------------------
+3. POST-UNLOCK OPERATIONS
+--------------------------------------------------------------------------------
+- State Validation: Queries the final lock flag status to verify that the 
+  bootloader state has successfully transitioned to unlocked.
+- System Reboot: Safely terminates the fastboot session and forces the target 
+  device to restart back into its primary operating system interface.
+================================================================================
+
+
+
 # ANDROID FASTBOOT CLI & DEVICE CHEAT SHEET
 # ==========================================
 
