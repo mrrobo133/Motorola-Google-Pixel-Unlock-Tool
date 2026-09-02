@@ -70,3 +70,6 @@ fastboot oem get_unlock_data
 fastboot oem unlock YOUR_OFFICIAL_CODE
 
 ```
+```bash
+fastboot oem unlock you code
+```
